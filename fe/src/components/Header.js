@@ -4,7 +4,7 @@ export const Header = () => {
   const headerStyle = {
     width: '100%',
     padding: '2%',
-    backgroundColor: 'red',
+    backgroundColor: '#6667AB',
     color: 'white',
     textAlign: 'center',
   };

@@ -2,30 +2,20 @@ const express = require('express');
 const path = require('path');
 
 const app = express();
-const bodyParser = require('body-parser');
 
-//const indexRouter = require('./routes/index');
-//app.use('/', indexRouter);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-const users = [];
-app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, '..', '../fe/build')));
-
-app.get('/api/users', (req, res) => {
-  console.log('api/users called!!!!');
-  res.json(users);
-});
-
-app.post('/api/user', (req, res) => {
-  const user = req.body.user;
-  console.log('Adding user::::::', user);
-  users.push(user);
-  res.json('user added');
-});
-
+//메인 화면 라우팅
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '..', '../fe/build/index.html'));
 });
+//정적파일(빌드파일) 경로 설정
+app.use(express.static(path.join(__dirname, '..', '../fe/build')));
+
+//라우팅
+const authRouter = require('./routes/auth');
+app.use('/api/auth', authRouter);
 
 //port 설정
 const port = 7303;

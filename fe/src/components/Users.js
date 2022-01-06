@@ -1,16 +1,16 @@
 import React from 'react';
 
 export const Users = ({ users }) => {
-  console.log('users legnth:::', users.lengh);
-  if (users.lengh === 0) return null;
+  if (users.length === 0 || users == null) return null;
+  console.log('users legnth:::', users);
 
   const UserRow = (user, index) => {
     return (
       <tr key={index} className={index % 2 === 0 ? 'odd' : 'even'}>
         <td>{index + 1}</td>
-        <td>{user.firstName}</td>
-        <td>{user.lastName}</td>
+        <td>{user.name}</td>
         <td>{user.email}</td>
+        <td>{user.password}</td>
       </tr>
     );
   };
@@ -22,10 +22,10 @@ export const Users = ({ users }) => {
       <table className='table table-bordered'>
         <thead>
           <tr>
-            <th>User Id</th>
-            <th>Firstname</th>
-            <th>Lastname</th>
+            <th>ID no</th>
+            <th>Name</th>
             <th>Email</th>
+            <th>Password</th>
           </tr>
         </thead>
         <tbody>{userTable}</tbody>
