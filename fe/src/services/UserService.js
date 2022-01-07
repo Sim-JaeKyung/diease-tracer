@@ -9,7 +9,7 @@ export async function getAllUsers() {
 export async function createUser(data) {
   try {
     const res = await axios.post('/api/auth/signup', { data });
-    return res.json(data);
+    return res.data;
   } catch (error) {
     console.error(error);
   }
@@ -18,26 +18,8 @@ export async function createUser(data) {
 export async function login(data) {
   try {
     const res = await axios.post('/api/auth/login', { data });
-    return res.json(data);
+    return res.data;
   } catch (error) {
     console.error(error);
   }
 }
-
-// export async function getAllUsers() {
-//   try {
-//     const response = await fetch('/api/users');
-//     return await response.json();
-//   } catch (error) {
-//     return [];
-//   }
-// }
-
-// export async function createUser(data) {
-//   const response = await fetch(`/api/user`, {
-//     method: 'POST',
-//     headers: { 'Content-Type': 'application/json' },
-//     body: JSON.stringify({ user: data }),
-//   });
-//   return await response.json();
-// }

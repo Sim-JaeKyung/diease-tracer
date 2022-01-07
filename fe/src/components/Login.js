@@ -1,35 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
+import { login } from '../services/UserService';
 
-function Login() {
-  const [inputId, setInputId] = useState('');
-  const [inputPw, setInputPw] = useState('');
+function Login({ setIsLoggedin }) {
+  const [user, setUser] = useState({
+    email: '',
+    password: '',
+  });
 
-  // input data 의 변화가 있을 때마다 value 값을 변경해서 useState 해준다
-  const handleInputId = (e) => {
-    setInputId(e.target.value);
+  const loginOnClick = async () => {
+    try {
+      const res = await login(user);
+      console.log(res);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
-  const handleInputPw = (e) => {
-    setInputPw(e.target.value);
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setUser({
+      ...user,
+      [name]: value,
+    });
   };
-
-  // login 버튼 클릭 이벤트
-  const onClickLogin = () => {
-    console.log('click login');
-  };
-
-  // 페이지 렌더링 후 가장 처음 호출되는 함수
-  useEffect(
-    () => {
-      axios
-        .get('/user_inform/login')
-        .then((res) => console.log(res))
-        .catch();
-    },
-    // 페이지 호출 후 처음 한번만 호출될 수 있도록 [] 추가
-    []
-  );
 
   return (
     <div className='container'>
@@ -38,16 +31,39 @@ function Login() {
           <h2>로그인</h2>
           <div className='form-group col-md-6'>
             <label htmlFor='email'>Email : </label>
-            <input type='text' name='email' value={inputId} onChange={handleInputId} />
+            <input
+              type='text'
+              name='email'
+              value={user.email}
+              onChange={onChange}
+              placeholder='Email'
+            />
           </div>
           <div className='form-group col-md-6'>
             <label htmlFor='pw'>PW : </label>
-            <input type='password' name='pw' value={inputPw} onChange={handleInputPw} />
+            <input
+              type='password'
+              name='password'
+              value={user.password}
+              onChange={onChange}
+              placeholder='Password'
+            />
           </div>
           <div className='form-group col-md-6'>
-            <button type='button' onClick={onClickLogin} className='btn btn-danger'>
-              Login
+            <button type='button' onClick={loginOnClick} className='btn btn-danger'>
+              로그인
             </button>
+            <button
+              type='button'
+              onClick={() => {
+                setIsLoggedin(true);
+              }}
+              className='btn btn-danger'
+            >
+              회원가입
+            </button>
+            <br />
+            <br />
           </div>
         </form>
       </div>

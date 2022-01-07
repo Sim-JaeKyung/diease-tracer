@@ -18,3 +18,12 @@ module.exports.createHashedPassword = (plainPassword) =>
       resolve({ hashedPW: key.toString('base64'), salt });
     });
   });
+
+//로그인 요청 받은 비밀번호 해쉬화
+module.exports.createHashedPasswordForLogin = (password, salt) =>
+  new Promise(async (resolve, reject) => {
+    crypto.pbkdf2(password, salt, 9999, 64, 'sha512', (err, key) => {
+      if (err) reject(err);
+      resolve({ hashedPW: key.toString('base64') });
+    });
+  });
