@@ -45,19 +45,16 @@ router.post("/login", async (req, res, next) => {
     if (hashedPW == dbpassword) {
       const name = saltData[0][0].name;
       console.log(`login success:::::`);
-      //세션 생성
-      // if (req.session.userData) {
-      //   console.log(`세션이 존재합니다.`);
-      // } else {
-      //   req.session.userData = {
-      //     email: email,
-      //     password: password,
-      //   };
-      //   req.session.save((error) => {
-      //     if (error) console.log(error);
-      //   });
-      // }
-      res.json(`환영합니다. ${name} 님`);
+      if (req.session.userData == undefined) {
+        req.session.userData = {
+          email,
+          password,
+        };
+        req.session.save(() => {
+          res.json(`환영합니다. ${name} 님`);
+        });
+        // res.send(`session data saved:::::${req.session.userData}`);
+      }
     } else {
       res.json(`비밀번호를 확인해주세요`);
     }
@@ -68,13 +65,13 @@ router.post("/login", async (req, res, next) => {
 });
 
 //로그인 체크
-router.get("/loginCheck", (req, res) => {
-  if (req.session.userData) {
-    res.send({ loggedIn: true, userData: req.session.userData });
-  } else {
-    res.send({ loggedIn: false });
-  }
-});
+// router.get('/', (req, res) => {
+//   if (req.session.userData) {
+//     res.send({ loggedIn: true, userData: req.session.userData });
+//   } else {
+//     res.send({ loggedIn: false });
+//   }
+// });
 
 //로그아웃
 router.get("/logout", (req, res) => {
