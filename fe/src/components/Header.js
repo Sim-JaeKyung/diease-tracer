@@ -11,7 +11,7 @@ export const Header = () => {
 
   return (
     <div style={headerStyle}>
-      <h1>React With NodeJS</h1>
+      <h1>Proyecto</h1>
     </div>
   );
 };

@@ -23,3 +23,12 @@ export async function login(data) {
     console.error(error);
   }
 }
+
+export async function logout() {
+  try {
+    const res = await axios.post('/api/auth/logout');
+    return res.data;
+  } catch (error) {
+    console.error(error);
+  }
+}

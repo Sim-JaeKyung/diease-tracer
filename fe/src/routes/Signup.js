@@ -33,7 +33,7 @@ const Signup = ({ setIsLoggedin }) => {
     });
   };
   return (
-    <>
+    <div className='container'>
       <h2>회원가입</h2>
       <div className='container'>
         <div className='row'>
@@ -92,7 +92,7 @@ const Signup = ({ setIsLoggedin }) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

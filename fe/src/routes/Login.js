@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { login } from '../services/UserService';
 
-function Login({ setIsLoggedin }) {
+function Login() {
   const [user, setUser] = useState({
     email: '',
     password: '',
@@ -10,9 +11,9 @@ function Login({ setIsLoggedin }) {
   const loginOnClick = async () => {
     try {
       const res = await login(user);
-      console.log(res);
+      alert(res);
     } catch (err) {
-      console.error(err);
+      console.error();
     }
   };
 
@@ -50,18 +51,12 @@ function Login({ setIsLoggedin }) {
             />
           </div>
           <div className='form-group col-md-6'>
-            <button type='button' onClick={loginOnClick} className='btn btn-danger'>
+            <button onClick={loginOnClick} className='btn btn-danger'>
               로그인
             </button>
-            <button
-              type='button'
-              onClick={() => {
-                setIsLoggedin(true);
-              }}
-              className='btn btn-danger'
-            >
+            <Link to='/signup' className='btn btn-danger'>
               회원가입
-            </button>
+            </Link>
             <br />
             <br />
           </div>
