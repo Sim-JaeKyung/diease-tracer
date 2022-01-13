@@ -13,8 +13,9 @@ function Login() {
       const res = await login(user);
       alert(res);
     } catch (err) {
-      console.error();
+      console.error(err);
     }
+    window.location.reload();
   };
 
   const onChange = (e) => {
@@ -51,9 +52,9 @@ function Login() {
             />
           </div>
           <div className='form-group col-md-6'>
-            <button onClick={loginOnClick} className='btn btn-danger'>
+            <Link to='/' onClick={loginOnClick} className='btn btn-danger'>
               로그인
-            </button>
+            </Link>
             <Link to='/signup' className='btn btn-danger'>
               회원가입
             </Link>

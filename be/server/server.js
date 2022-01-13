@@ -21,7 +21,7 @@ app.use(
     store: sessionStore,
     proxy: true,
     cookie: {
-      expires: 60 * 60 * 24,
+      maxAge: 1000 * 60 * 60,
       httpOnly: true, //JS를 통해 세션 쿠키를 사용할 수 없도록 함
       // secure: true, //https 환경에서만 session 정보를 주고받도록 처리
     },

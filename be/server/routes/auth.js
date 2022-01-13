@@ -39,17 +39,18 @@ router.post('/login', async (req, res, next) => {
     const dbpassword = saltData[0][0].password;
     if (hashedPW == dbpassword) {
       const name = saltData[0][0].name;
-      console.log(`login success:::::`);
+      console.log(`login success::::: ${name}`);
       if (req.session.userData == undefined) {
         req.session.userData = {
           email,
           password,
+          name,
         };
-        req.session.save((error) => {
-          console.log(req.session.userData);
-          console.error();
+        req.session.save(() => {
           res.json(`환영합니다. ${name} 님`);
         });
+      } else {
+        console.log('세션 관련 문제 ...');
       }
     } else {
       res.json(`비밀번호를 확인해주세요`);
@@ -61,7 +62,7 @@ router.post('/login', async (req, res, next) => {
 });
 
 //로그인 체크
-router.get('/loginCheck', (req, res) => {
+router.post('/loginCheck', (req, res) => {
   if (req.session.userData) {
     res.send({ loggedIn: true, userData: req.session.userData });
   } else {
@@ -70,13 +71,16 @@ router.get('/loginCheck', (req, res) => {
 });
 
 //로그아웃
-router.get('/logout', (req, res) => {
-  console.log('clear cookie');
-  res.clearCookie('ssesion_ssim');
-  console.log('clear session');
-  req.session.destroy((error) => {
-    if (error) console.log(error);
-  });
+router.post('/logout', (req, res) => {
+  if (req.session.userData) {
+    const name = req.session.userData.name;
+    console.log('clear session');
+    req.session.destroy(() => {
+      res.clearCookie('session_ssim');
+      console.log(`logout success::::: ${name}`);
+      res.send(`로그아웃 완료::::: ${name}`);
+    });
+  }
 });
 
 module.exports = router;

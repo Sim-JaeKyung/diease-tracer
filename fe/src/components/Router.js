@@ -4,14 +4,14 @@ import Login from 'routes/Login';
 import Main from 'routes/Main';
 import Signup from 'routes/Signup';
 import { Header } from './Header';
-const AppRouter = ({ isLoggedin }) => {
+const AppRouter = ({ isLoggedin, userName }) => {
   return (
     <Router>
       <Header />
       <Routes>
         {isLoggedin ? (
           <>
-            <Route path='/' element={<Main />} />
+            <Route path='/' element={<Main userName={userName} />} />
           </>
         ) : (
           <>
