@@ -1,9 +1,12 @@
 import React from 'react';
 import { HashRouter as Router, Route, Routes } from 'react-router-dom';
-import Login from 'routes/Login';
+import LoginPage from 'routes/LoginPage';
 import Main from 'routes/Main';
-import Signup from 'routes/Signup';
+import MyPage from 'routes/MyPage';
+import MyWorkPage from 'routes/MyWorkPage';
+import SignupPage from 'routes/SignupPage';
 import { Header } from './Header';
+
 const AppRouter = ({ isLoggedin, userName }) => {
   return (
     <Router>
@@ -12,11 +15,13 @@ const AppRouter = ({ isLoggedin, userName }) => {
         {isLoggedin ? (
           <>
             <Route path='/' element={<Main userName={userName} />} />
+            <Route path='/mypage' element={<MyPage />} />
+            <Route path='/mywork' element={<MyWorkPage />} />
           </>
         ) : (
           <>
-            <Route path='/' element={<Login />} />
-            <Route path='/signup' element={<Signup />} />
+            <Route path='/' element={<LoginPage />} />
+            <Route path='/signup' element={<SignupPage />} />
           </>
         )}
       </Routes>

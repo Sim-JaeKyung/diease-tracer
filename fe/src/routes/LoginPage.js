@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { login } from '../services/UserService';
+import { login } from '../services/AccountService';
 
-function Login() {
+function LoginPage() {
   const [user, setUser] = useState({
     email: '',
     password: '',
@@ -34,6 +34,7 @@ function Login() {
           <div className='form-group col-md-6'>
             <label htmlFor='email'>Email : </label>
             <input
+              className='form-control'
               type='text'
               name='email'
               value={user.email}
@@ -41,9 +42,10 @@ function Login() {
               placeholder='Email'
             />
           </div>
-          <div className='form-group col-md-6'>
+          <div className='form-group col-md-6 '>
             <label htmlFor='pw'>PW : </label>
             <input
+              className='form-control'
               type='password'
               name='password'
               value={user.password}
@@ -67,4 +69,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default LoginPage;

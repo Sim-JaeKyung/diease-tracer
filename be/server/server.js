@@ -37,7 +37,9 @@ app.use(express.static(path.join(__dirname, '..', '../fe/build')));
 
 //라우팅
 const authRouter = require('./routes/auth');
+const mypageRouter = require('./routes/mypage');
 app.use('/api/auth', authRouter);
+app.use('/api/mypage', mypageRouter);
 
 //port 설정
 const port = 7303;

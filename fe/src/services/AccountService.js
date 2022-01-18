@@ -32,3 +32,12 @@ export async function logout() {
     console.error(error);
   }
 }
+
+export async function emailCheck(data) {
+  try {
+    const res = await axios.post('/api/auth/emailcheck', { data });
+    return res.data;
+  } catch (error) {
+    console.error(error);
+  }
+}

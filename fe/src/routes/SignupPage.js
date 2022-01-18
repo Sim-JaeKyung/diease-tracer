@@ -1,27 +1,36 @@
 import { useState } from 'react';
-import styles from '../css/CreateUser.module.css';
 
-import { createUser } from '../services/UserService';
+import { createUser, emailCheck } from '../services/AccountService';
 
-const Signup = ({ setIsLoggedin }) => {
+const SignupPage = () => {
   const [user, setUser] = useState({
     name: '',
     email: '',
     password: '',
   });
+  const [emailCheckedMsg, setEmailCheckedMsg] = useState('');
 
   const signup = async () => {
-    try {
-      const res = await createUser(user);
-      console.log(res);
-      if (res == null) {
-        alert('에러. 다시 확인하세요.');
+    if (emailCheckedMsg === '해당 메일은 사용 중입니다') {
+      alert('다른 이메일을 사용해주세요');
+    } else if (emailCheckedMsg === '') {
+      alert('이메일 중복 확인을 한 후 등록해주세요');
+    } else {
+      if (user.name === '' || user.email === '') {
+        alert('이름과 이메일을 확인해주세요');
       } else {
-        alert(res);
-        setIsLoggedin(false);
+        try {
+          const res = await createUser(user);
+          console.log(res);
+          if (res == null) {
+            alert('에러. 다시 확인하세요.');
+          } else {
+            alert(res);
+          }
+        } catch (err) {
+          console.error(err);
+        }
       }
-    } catch (err) {
-      console.error(err);
     }
   };
 
@@ -32,6 +41,13 @@ const Signup = ({ setIsLoggedin }) => {
       [name]: value,
     });
   };
+
+  const emailCheckHandler = (e) => {
+    e.preventDefault();
+    const newEmail = user.email;
+    emailCheck(newEmail).then((response) => setEmailCheckedMsg(response));
+  };
+
   return (
     <div className='container'>
       <h2>회원가입</h2>
@@ -41,9 +57,7 @@ const Signup = ({ setIsLoggedin }) => {
             <form>
               <div className='row'>
                 <div className='form-group col-md-6'>
-                  <label className={styles.registerFont} htmlFor='name'>
-                    이름
-                  </label>
+                  <label htmlFor='name'>이름</label>
                   <input
                     type='text'
                     onChange={onChange}
@@ -67,6 +81,14 @@ const Signup = ({ setIsLoggedin }) => {
                     id='email'
                     placeholder='Email'
                   />
+                  <button className='btn btn-info' onClick={emailCheckHandler}>
+                    중복확인
+                  </button>
+                  {emailCheckedMsg === '사용 가능한 이메일입니다' ? (
+                    <span style={{ color: '#00a3d2' }}>{emailCheckedMsg}</span>
+                  ) : (
+                    <span style={{ color: 'red' }}>{emailCheckedMsg}</span>
+                  )}
                 </div>
               </div>
               <div className='row'>
@@ -85,7 +107,7 @@ const Signup = ({ setIsLoggedin }) => {
                   />
                 </div>
               </div>
-              <button type='button' onClick={signup} className='btn btn-danger'>
+              <button onClick={signup} className='btn btn-danger'>
                 등록
               </button>
             </form>
@@ -96,4 +118,4 @@ const Signup = ({ setIsLoggedin }) => {
   );
 };
 
-export default Signup;
+export default SignupPage;

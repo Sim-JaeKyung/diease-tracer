@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/App.css';
 import AppRouter from './Router';
@@ -25,18 +25,10 @@ function App() {
     setInit(true);
   }, []);
 
-  // const [numberOfUsers, setNumberOfUsers] = useState(0);
-  // const fetchAllUsers = () => {
-  //   getAllUsers().then((users) => {
-  //     console.log(users);
-  //     setUsers(users);
-  //     setNumberOfUsers(users.length);
-  //   });
-  // };
-
   return (
     <>
       {init ? <AppRouter isLoggedin={isLoggedin} userName={userName} /> : 'initilizing ...'}
+      <br />
       <a href='/'>
         <footer> &copy;Disease Tracer {new Date().getFullYear()} </footer>
       </a>
