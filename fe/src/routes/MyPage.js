@@ -10,8 +10,12 @@ function MyPage() {
   const handleSelect = async (role) => {
     const targetUserName = selectedUserInfo[0];
     const targetUserEmail = selectedUserInfo[1];
-    await window.confirm(`${targetUserName} 님의 권한을 ${role}로 바꾸시겠습니까?`);
-    await switchRole(targetUserEmail, role).then((res) => alert(res));
+    const roleChangeCheck = await window.confirm(
+      `${targetUserName} 님의 권한을 ${role}로 바꾸시겠습니까?`
+    );
+    if (roleChangeCheck) {
+      await switchRole(targetUserEmail, role).then((res) => alert(res));
+    }
   };
 
   useEffect(() => {

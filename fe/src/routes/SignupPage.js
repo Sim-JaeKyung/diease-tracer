@@ -3,6 +3,11 @@ import { useState } from 'react';
 import { createUser, emailCheck } from '../services/AccountService';
 
 const SignupPage = () => {
+  //정규식
+  const emailRegex =
+    /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
+  const re = new RegExp(emailRegex);
+
   const [user, setUser] = useState({
     name: '',
     email: '',
@@ -45,7 +50,11 @@ const SignupPage = () => {
   const emailCheckHandler = (e) => {
     e.preventDefault();
     const newEmail = user.email;
-    emailCheck(newEmail).then((response) => setEmailCheckedMsg(response));
+    if (re.test(newEmail)) {
+      emailCheck(newEmail).then((response) => setEmailCheckedMsg(response));
+    } else {
+      alert('이메일 양식을 지켜주세요');
+    }
   };
 
   return (
@@ -108,7 +117,7 @@ const SignupPage = () => {
                 </div>
               </div>
               <button onClick={signup} className='btn btn-danger'>
-                등록
+                회원가입
               </button>
             </form>
           </div>

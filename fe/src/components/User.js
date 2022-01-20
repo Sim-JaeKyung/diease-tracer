@@ -10,6 +10,10 @@ function User({ user, handleSelect, setSelectedUserInfo }) {
     } else setIsRadioChecked(false);
   };
 
+  const onRoleClick = () => {
+    if (isRadioChecked === false) alert('권한을 변경할 사용자를 체크해주세요');
+  };
+
   return (
     <tr>
       <td>
@@ -23,7 +27,11 @@ function User({ user, handleSelect, setSelectedUserInfo }) {
       <td>{user.email}</td>
       <td>{user.name}</td>
       <td>
-        <select defaultValue={user.role} onChange={(e) => handleSelect(e.currentTarget.value)}>
+        <select
+          defaultValue={user.role}
+          onChange={(e) => handleSelect(e.currentTarget.value)}
+          onClick={onRoleClick}
+        >
           {options.map((optionName) => (
             <option
               key={optionName}

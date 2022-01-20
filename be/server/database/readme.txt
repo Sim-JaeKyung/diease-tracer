@@ -8,7 +8,7 @@ CREATE TABLE users (
   email char(30) NOT NULL PRIMARY KEY,
   password char(255) NOT NULL,
   salt char(255) NOT NULL,
-  auth char(20) NOT NULL DEFAULT '직원'
+  role char(20) NOT NULL DEFAULT '직원'
 );
 
 
