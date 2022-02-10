@@ -43,8 +43,7 @@ app.use('/api/mypage', mypageRouter);
 
 //port 설정
 const port = 7303;
-require('dotenv').config();
-app.listen(port, () => console.log(`Listening on ${port} port ${process.env.HOST}`));
+app.listen(port, () => console.log(`Listening on ${port}`));
 
 //프록시 설정
 const cors = require('cors');

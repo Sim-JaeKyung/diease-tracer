@@ -21,8 +21,14 @@ router.post('/switchrole', (req, res) => {
 
 router.post('/getalluserinfo', async (req, res, next) => {
   if (req.session.userData) {
-    const data = await db.query(`SELECT name, email, role  FROM users`);
-    const users = data[0];
+    const data = await db.query(
+      `select (select count(email) from users) as tot, name, email, role from users;`
+    );
+    const tot = data[0].tot;
+    const users = [];
+    for (i = 0; i < tot; i++) {
+      users.push(data[i]);
+    }
     res.json(users);
   }
 });

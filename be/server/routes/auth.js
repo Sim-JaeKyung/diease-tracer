@@ -18,7 +18,10 @@ router.post('/signup', async (req, res, next) => {
   user.password = hashedPW;
   user.salt = salt;
   res.json(`user added`);
-  await db.query(`INSERT INTO users SET ?`, user);
+  // await db.query(`INSERT INTO users SET ?`, user);
+  await db.query(
+    `INSERT INTO users (name, email, password, salt) VALUES ('${user.name}','${user.email}','${user.password}','${user.salt}')`
+  );
 });
 
 //이메일 중복체크
@@ -38,13 +41,13 @@ router.post('/login', async (req, res, next) => {
   const { email, password } = req.body.data;
   try {
     const saltData = await db.query(`SELECT * FROM users WHERE email='${email}'`);
-    const dbsalt = saltData[0][0].salt;
+    const dbsalt = saltData[0].salt;
     //요청 받은 비밀번호 암호화 후 대조
     const { hashedPW } = await hashPW.createHashedPasswordForLogin(password, dbsalt);
-    const dbpassword = saltData[0][0].password;
-    const role = saltData[0][0].role;
+    const dbpassword = saltData[0].password;
+    const role = saltData[0].role;
     if (hashedPW == dbpassword) {
-      const name = saltData[0][0].name;
+      const name = saltData[0].name;
       console.log(`login success::::: ${name}`);
       if (req.session.userData == undefined) {
         req.session.userData = {
