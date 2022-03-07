@@ -1,8 +1,12 @@
-import UsersTable from 'components/UsersTable';
-import React, { useEffect, useState } from 'react';
-import { getAllUserInfo, getUserRole, switchRole } from 'services/CommonService';
+import UsersTable from "components/UsersTable";
+import React, { useEffect, useState } from "react";
+import {
+  getAllUserInfo,
+  getUserRole,
+  switchRole,
+} from "services/CommonService";
 function MyPage() {
-  const [userRole, setUserRole] = useState('');
+  const [userRole, setUserRole] = useState("");
   const [selectedUserInfo, setSelectedUserInfo] = useState([]);
   const [allUsers, setAllUsers] = useState({});
   const [isUsersUpdated, setIsUsersUpdated] = useState(false);
@@ -21,7 +25,7 @@ function MyPage() {
   useEffect(() => {
     getUserRole().then((response) => {
       setUserRole(response);
-      if (response === '관리자') {
+      if (response === "관리자") {
         getAllUserInfo().then((users) => {
           setAllUsers(users);
           setIsUsersUpdated(true);
@@ -35,7 +39,7 @@ function MyPage() {
       <div>
         <h2>마이 페이지</h2>
       </div>
-      {userRole === '관리자' && isUsersUpdated === true && (
+      {userRole === "관리자" && isUsersUpdated === true && (
         <div>
           <h3>회원 목록</h3> <p>등록된 회원 수: {allUsers.length}</p>
           <UsersTable

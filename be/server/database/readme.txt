@@ -1,15 +1,15 @@
 db 만들 때 주의사항~~~~
 
 1. users 테이블
-name, email, password로 만들 것!
-password의 default는 auth.js 18번 줄과 동일하게 사용하자!(헷갈릴 수 있음)
-CREATE TABLE users (
-  name char(10) NOT NULL,
-  email char(30) NOT NULL PRIMARY KEY,
-  password char(255) NOT NULL,
-  salt char(255) NOT NULL,
-  role char(20) NOT NULL DEFAULT '직원'
-);
+  name, email, password로 만들 것!
+  password의 default는 auth.js 18번 줄과 동일하게 사용하자!(헷갈릴 수 있음)
+  CREATE TABLE users (
+    name char(10) NOT NULL,
+    email char(30) NOT NULL PRIMARY KEY,
+    password char(255) NOT NULL,
+    salt char(255) NOT NULL,
+    role char(20) NOT NULL DEFAULT '직원'
+  );
 
 
 2. covid status 테이블

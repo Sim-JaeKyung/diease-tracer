@@ -1,9 +1,9 @@
-const express = require('express');
-const db = require('../database/pool');
+const express = require("express");
+const db = require("../database/pool");
 const router = express.Router();
 
-router.post('/switchrole', (req, res) => {
-  if (req.session.userData.role === '관리자') {
+router.post("/switchrole", (req, res) => {
+  if (req.session.userData.role === "관리자") {
     const role = req.body.role;
     const email = req.body.email;
     try {
@@ -19,7 +19,7 @@ router.post('/switchrole', (req, res) => {
   }
 });
 
-router.post('/getalluserinfo', async (req, res, next) => {
+router.post("/getalluserinfo", async (req, res, next) => {
   if (req.session.userData) {
     const data = await db.query(
       `select (select count(email) from users) as tot, name, email, role from users;`
